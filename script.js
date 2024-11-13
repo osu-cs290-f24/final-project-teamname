@@ -10,6 +10,14 @@ var food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random
 var gameOver = false;
 var startSnakeMovement = false;
 
+var speedUp = { x: null, y: null };
+var isSpeedUpActive = false;
+var speedUpDuration = 5000; // 5 seconds
+var normalSpeed = 100;
+var fastSpeed = 75;
+var currentSpeed = normalSpeed;
+var speedUpTimeout;
+
 var allTimeHighScore = 0;
 var allTimeHighScoreSpan = document.getElementById('allTimeHighScore');
 
@@ -18,6 +26,18 @@ var yourHighScoreSpan = document.getElementById('yourHighScore');
 
 var currScore = 0;
 var currScoreSpan = document.getElementById('currScore');
+
+function generateSpeedUp() {
+  speedUp.x = Math.floor(Math.random() * tileCount);
+  speedUp.y = Math.floor(Math.random() * tileCount);
+  isSpeedUpActive = true;
+}
+
+setInterval(() => {
+  if (!isSpeedUpActive) {
+    generateSpeedUp();
+  }
+}, 20000); // every 10 seconds
 
 function resetGame(){
     currScore = 0;
@@ -47,7 +67,7 @@ function gameLoop() {
   }
   
   //Call gameLoop function again with 100ms delay 
-  setTimeout(gameLoop, 100);
+  setTimeout(gameLoop, currentSpeed);
 }
 
 function moveSnake() {
@@ -55,6 +75,17 @@ function moveSnake() {
 
   //Add new head to front of snake array
   snake.unshift(head); 
+
+  //if snake eats power up
+  if (isSpeedUpActive && head.x === speedUp.x && head.y === speedUp.y) {
+    isSpeedUpActive = false;
+    currentSpeed = fastSpeed;
+
+    clearTimeout(speedUpTimeout);
+    speedUpTimeout = setTimeout(() => {
+      currentSpeed = normalSpeed;
+    }, speedUpDuration);
+  }
   
   if (head.x === food.x && head.y === food.y) {
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
@@ -93,6 +124,7 @@ function drawGame() {
     }
   }
 
+
   //Draw the snake
   ctx.fillStyle = '#0F0';
   snake.forEach((part) => {
@@ -108,6 +140,14 @@ function drawGame() {
         ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
     }
   });
+
+   // draw speed up power up
+   if (isSpeedUpActive) {
+    ctx.beginPath();
+    ctx.arc(speedUp.x * gridSize + gridSize / 2, speedUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = '#FFD700'; // Gold color for the power-up
+    ctx.fill();
+  }
 
   //Draw the food
   ctx.beginPath();
