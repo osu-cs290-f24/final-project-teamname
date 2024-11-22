@@ -1,15 +1,18 @@
+/*variables for the game board*/
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 const gridSize = 40;
 const tileCount = canvas.width / gridSize;
 
+/*variables for the snake*/
 var snake = [{ x: 10, y: 10 }, {x: 9, y: 10}];
 var direction = { x: 0, y: 0 };
 var food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 var gameOver = false;
 var startSnakeMovement = false;
 
+/*variables for the speed up power up*/
 var speedUp = { x: null, y: null };
 var isSpeedUpActive = false;
 var speedUpDuration = 5000; // 5 seconds
@@ -17,7 +20,14 @@ var normalSpeed = 100;
 var fastSpeed = 75;
 var currentSpeed = normalSpeed;
 var speedUpTimeout;
+var speedUpInterval;
 
+/*variables for break power up*/
+var breakPowerUp = { x: null, y: null };
+var isBreakPowerUpActive = false;
+var breakPowerUpInterval;
+
+/*variables for the high scores*/
 var allTimeHighScore = 0;
 var allTimeHighScoreSpan = document.getElementById('allTimeHighScore');
 
@@ -27,17 +37,47 @@ var yourHighScoreSpan = document.getElementById('yourHighScore');
 var currScore = 0;
 var currScoreSpan = document.getElementById('currScore');
 
+//functions for generation power ups
 function generateSpeedUp() {
-  speedUp.x = Math.floor(Math.random() * tileCount);
-  speedUp.y = Math.floor(Math.random() * tileCount);
+  do {
+    speedUp.x = Math.floor(Math.random() * tileCount);
+    speedUp.y = Math.floor(Math.random() * tileCount);
+  } while (
+    (speedUp.x === breakPowerUp.x && speedUp.y === breakPowerUp.y) || // Avoid break power-up
+    (speedUp.x === food.x && speedUp.y === food.y) || // Avoid food
+    snake.some((part) => part.x === speedUp.x && part.y === speedUp.y) // Avoid snake
+  );
+
   isSpeedUpActive = true;
 }
 
-setInterval(() => {
-  if (!isSpeedUpActive) {
-    generateSpeedUp();
-  }
-}, 20000); // every 10 seconds
+function generateBreakPowerUp() {
+  do {
+    breakPowerUp.x = Math.floor(Math.random() * tileCount);
+    breakPowerUp.y = Math.floor(Math.random() * tileCount);
+  } while (
+    (breakPowerUp.x === speedUp.x && breakPowerUp.y === speedUp.y) || // Avoid speed power-up
+    (breakPowerUp.x === food.x && breakPowerUp.y === food.y) || // Avoid food
+    snake.some((part) => part.x === breakPowerUp.x && part.y === breakPowerUp.y) // Avoid snake
+  );
+
+  isBreakPowerUpActive = false;
+}
+
+// start the intervals for generating power-ups
+function startIntervals () {
+  speedUpInterval = setInterval(() => {
+    if (!isSpeedUpActive) {
+      generateSpeedUp();
+    }
+  }, 15000);
+  
+  breakPowerUpInterval = setInterval(() => {
+    if (!isBreakPowerUpActive) {
+      generateBreakPowerUp();
+    }
+  }, 25000);
+}
 
 function resetGame(){
     currScore = 0;
@@ -45,10 +85,18 @@ function resetGame(){
 
     startSnakeMovement = false;
     gameOver = false;
+    isBreakPowerUpActive = false;
+    isSpeedUpActive = false;
+    currentSpeed = normalSpeed;
+
+    clearInterval(speedUpInterval);
+    clearInterval(breakPowerUpInterval);
 
     snake = [{ x: 10, y: 10 }, {x: 9, y: 10}];
     direction = { x: 0, y: 0 };
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+
+    startIntervals();
 }
 
 function gameLoop() {
@@ -86,7 +134,12 @@ function moveSnake() {
       currentSpeed = normalSpeed;
     }, speedUpDuration);
   }
-  
+
+  if (head.x === breakPowerUp.x && head.y === breakPowerUp.y) {
+    isBreakPowerUpActive = true; 
+    breakPowerUp = { x: null, y: null }; 
+  }
+   
   if (head.x === food.x && head.y === food.y) {
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
     currScore++;
@@ -126,7 +179,7 @@ function drawGame() {
 
 
   //Draw the snake
-  ctx.fillStyle = '#0F0';
+  ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#0F0'; // Yellow when break power-up is active, green otherwise
   snake.forEach((part) => {
     if(part === snake[0]){
 
@@ -141,11 +194,19 @@ function drawGame() {
     }
   });
 
+  // Draw the break power-up
+  if (breakPowerUp.x !== null && breakPowerUp.y !== null) {
+    ctx.beginPath();
+    ctx.arc(breakPowerUp.x * gridSize + gridSize / 2, breakPowerUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = '#e3bd00';
+    ctx.fill();
+  }
+
    // draw speed up power up
    if (isSpeedUpActive) {
     ctx.beginPath();
     ctx.arc(speedUp.x * gridSize + gridSize / 2, speedUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = '#FFD700'; // Gold color for the power-up
+    ctx.fillStyle = '#3c32a8'; 
     ctx.fill();
   }
 
@@ -199,10 +260,19 @@ function checkCollisions() {
     gameOver = true;
   }
 
+
+
   //Check if snake head hit its body
-  for (var i = 1; i < snake.length; i++) {
+  for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
-      gameOver = true;
+      if (isBreakPowerUpActive) {
+        // Break power-up active: remove all parts after collision
+        snake = snake.slice(0, i); 
+        isBreakPowerUpActive = false; 
+        break; 
+      } else {
+        gameOver = true; 
+      }
     }
   }
 }
@@ -213,6 +283,7 @@ async function initializeAllTimeHighScore(){
 }
 
 initializeAllTimeHighScore();
+startIntervals();
 gameLoop();
 
 
