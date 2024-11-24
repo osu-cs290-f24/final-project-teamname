@@ -1,9 +1,184 @@
 body {
   text-align: center;
   height: 80vh;
+  /* gradient overlay generated with the help of https://non-boring-gradients.netlify.app/ */
+  background: linear-gradient(180deg, rgb(0% 0% 0% / 0.26) 0%, rgb(22.752% 22.752% 22.752% / 0.20084381103515625) 6.25%, rgb(41.382% 41.382% 41.382% / 0.1524072265625) 12.5%, rgb(56.419% 56.419% 56.419% / 0.11330963134765626) 18.75%, rgb(68.359% 68.359% 68.359% / 0.08226562500000001) 25%, rgb(77.66% 77.66% 77.66% / 0.05808502197265625) 31.25%, rgb(84.741% 84.741% 84.741% / 0.0396728515625) 37.5%, rgb(89.989% 89.989% 89.989% / 0.02602935791015626) 43.75%, rgb(93.75% 93.75% 93.75% / 0.016249999999999987) 50%, rgb(96.336% 96.336% 96.336% / 0.009525451660156226) 56.25%, rgb(98.022% 98.022% 98.022% / 0.005141601562499987) 62.5%, rgb(99.046% 99.046% 99.046% / 0.00247955322265625) 68.75%, rgb(99.609% 99.609% 99.609% / 0.00101562500000002) 75%, rgb(99.876% 99.876% 99.876% / 0.00032135009765627) 81.25%, rgb(99.976% 99.976% 99.976% / 0.00006347656249999778) 87.5%, rgb(99.998% 99.998% 99.998% / 0.000003967285156225575) 93.75%, rgb(100% 100% 100% / 0) 100% )
+  , url(images/background.png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size:cover; 
+  margin: 0;
 }
 
 canvas {
   border: 2px solid #fff;
 }
-  
+
+h1{
+  font-size: 80px;
+  color: rgb(242, 225, 97); 
+  font-family: "Atma", serif;
+}
+
+.score-info{
+  color: aliceblue;
+  font-family: "Alegreya SC", serif;
+  font-size: 30px;
+}
+
+#instruction{
+  width: 30%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  font-style: italic;
+  background-color: lightgray;
+}
+
+.sun img{
+	width: 100px;
+	animation:  sun 7.4s linear infinite;
+}
+
+.sun{
+	border-width: 0px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	position: absolute;
+	top: -100px;
+}
+
+@keyframes sun{
+	0%{
+		transform: translateY(0);
+		opacity: 1;
+	}
+	50%{
+		opacity: 1;
+	}
+	80%{
+		opacity: 1;
+	}
+	100%{
+		transform: translateY(80vh);
+		opacity: 0;
+	}
+}
+
+.sun img:nth-child(1){
+	animation-delay:  2s;
+	width:  50px;
+}
+.sun img:nth-child(2){
+	animation-delay:  1s;
+}
+.sun img:nth-child(3){
+	animation-delay:  3s;
+	width:  50px;
+}
+.sun img:nth-child(4){
+	animation-delay:  4.5s;
+}
+.sun img:nth-child(5){
+	animation-delay:  3s;
+}
+.sun img:nth-child(6){
+	width: 75px;
+	animation-delay:  6s;
+}
+.sun img:nth-child(7){
+	width: 60px;
+	animation-delay:  7s;
+}
+/* Tons of font. TODO: clean up unused fonts */
+.atma-light {
+  font-family: "Atma", system-ui;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.atma-regular {
+  font-family: "Atma", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.atma-medium {
+  font-family: "Atma", system-ui;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.atma-semibold {
+  font-family: "Atma", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.atma-bold {
+  font-family: "Atma", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.alegreya-sc-regular {
+  font-family: "Alegreya SC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.alegreya-sc-medium {
+  font-family: "Alegreya SC", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.alegreya-sc-bold {
+  font-family: "Alegreya SC", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.alegreya-sc-extrabold {
+  font-family: "Alegreya SC", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.alegreya-sc-black {
+  font-family: "Alegreya SC", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.alegreya-sc-regular-italic {
+  font-family: "Alegreya SC", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.alegreya-sc-medium-italic {
+  font-family: "Alegreya SC", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.alegreya-sc-bold-italic {
+  font-family: "Alegreya SC", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.alegreya-sc-extrabold-italic {
+  font-family: "Alegreya SC", serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.alegreya-sc-black-italic {
+  font-family: "Alegreya SC", serif;
+  font-weight: 900;
+  font-style: italic;
+}
