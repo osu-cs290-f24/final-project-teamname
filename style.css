@@ -92,7 +92,7 @@ h1{
 	width: 60px;
 	animation-delay:  7s;
 }
-
+/* Tons of font. TODO: clean up unused fonts */
 .atma-light {
   font-family: "Atma", system-ui;
   font-weight: 300;
