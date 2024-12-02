@@ -34,13 +34,67 @@ h1{
   font-style: italic;
   background-color: lightgray;
 }
+/* Switch for graphic designer mode starts here */
+.toggleWrapper {
+  margin: auto;
+  padding: 20px;
+  width: 55px;
+  border: 1px solid lightgray;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: white;
+} 
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(158, 158, 158);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: aliceblue;
+}
+
+input:checked + .slider {
+  background-color: #ff0000;
+}
+
+input:checked + .slider:before {
+  /* maaaaybe? */
+  transform: translateX(26px);
+}
+/* End graphic designer switch */
+
+/* Start yellow light dots stuff */
 .sun img{
 	width: 100px;
-	animation:  sun 7.4s linear infinite;
+  /* make them fall fancy infinitely */
+	animation:  sun 7.4s cubic-bezier(0.55, 0.09, 0.68, 0.53) infinite;
 }
 
 .sun{
+  /* space out light dots even */
 	border-width: 0px;
 	width: 100%;
 	display: flex;
@@ -92,93 +146,51 @@ h1{
 	width: 60px;
 	animation-delay:  7s;
 }
-/* Tons of font. TODO: clean up unused fonts */
-.atma-light {
-  font-family: "Atma", system-ui;
-  font-weight: 300;
-  font-style: normal;
+
+/* Graphic designer mode formatting hehehehehehehehe*/
+.graphic-design{
+  background-color: #eb2828;
+  font-family: cursive;
+  background-image: none;
 }
 
-.atma-regular {
-  font-family: "Atma", system-ui;
-  font-weight: 400;
-  font-style: normal;
+.sun.graphic-design{
+  display: none
 }
 
-.atma-medium {
-  font-family: "Atma", system-ui;
-  font-weight: 500;
-  font-style: normal;
+h3.graphic-design{
+  font-size: 30px;
+  color:rgb(255, 0, 251);
+  text-align: left;
 }
 
-.atma-semibold {
-  font-family: "Atma", system-ui;
-  font-weight: 600;
-  font-style: normal;
+h1.graphic-design{
+  font-family: "Barriecito";
+  text-shadow: 40px 20px 12px #9c25ef;
+  color: rgb(111 108 86)
 }
 
-.atma-bold {
-  font-family: "Atma", system-ui;
-  font-weight: 700;
-  font-style: normal;
+h1.graphic-design:hover{
+  color: rgb(83, 243, 68);
+  text-align:left;
 }
 
-.alegreya-sc-regular {
-  font-family: "Alegreya SC", serif;
-  font-weight: 400;
-  font-style: normal;
+canvas.graphic-design{
+  opacity: 0.5;
+  border-color: aqua;
+  border-width: 40px;
+  border-style: dotted;
+  box-shadow:2px 2px #9c25ef;
+  accent-color: yellow;
 }
 
-.alegreya-sc-medium {
-  font-family: "Alegreya SC", serif;
-  font-weight: 500;
-  font-style: normal;
+#canvas-container.graphic-design{
+  background-color: black;
+  border-width: 5px;
+  border-radius: 50%;
+  border-style:solid;
+  border-color: white;
 }
-
-.alegreya-sc-bold {
-  font-family: "Alegreya SC", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.alegreya-sc-extrabold {
-  font-family: "Alegreya SC", serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.alegreya-sc-black {
-  font-family: "Alegreya SC", serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.alegreya-sc-regular-italic {
-  font-family: "Alegreya SC", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.alegreya-sc-medium-italic {
-  font-family: "Alegreya SC", serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.alegreya-sc-bold-italic {
-  font-family: "Alegreya SC", serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.alegreya-sc-extrabold-italic {
-  font-family: "Alegreya SC", serif;
-  font-weight: 800;
-  font-style: italic;
-}
-
-.alegreya-sc-black-italic {
-  font-family: "Alegreya SC", serif;
-  font-weight: 900;
-  font-style: italic;
+.score-info.graphic-design{
+  text-align: right;
 }

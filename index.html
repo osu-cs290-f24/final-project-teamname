@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snake Game</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fonts.css">
   <script src="script.js" charset="utf-8" defer></script>
+  <script src="styleswitch.js" charset="utf-8" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Atma:wght@300;400;500;600;700&display=swap" rel="stylesheet"></head>
-<body>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Atma:wght@300;400;500;600;700&family=Ballet:opsz@16..72&family=Barriecito&family=Jacquard+24&family=Moo+Lah+Lah&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  <div id="graphic-switch-div"> 
+    <h3>Graphic Designer Mode</h3>
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" id="graphic-switch">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
 
   <h1>Worm Game</h1>
   <div class= "score-info">All-Time High Score: <span id = "allTimeHighScore">0</span></div>
@@ -18,8 +30,9 @@
   <br>
 
   <div class= "score-info">Score: <span id = "currScore">0</span></div>
-
+<div id="canvas-container">
   <canvas id="gameCanvas" width="800" height="800"></canvas>
+</div>
   <div class = "sun">
 		<img src = "https://static.vecteezy.com/system/resources/thumbnails/019/646/645/small/sun-light-overlay-png.png">
 		<img src = "https://static.vecteezy.com/system/resources/thumbnails/019/646/645/small/sun-light-overlay-png.png">
