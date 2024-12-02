@@ -34,16 +34,18 @@ h1{
   font-style: italic;
   background-color: lightgray;
 }
+
 /* Switch for graphic designer mode starts here */
-.toggleWrapper {
-  margin: auto;
-  padding: 20px;
-  width: 55px;
-  border: 1px solid lightgray;
-  margin-top: 20px;
-  border-radius: 5px;
-  background: white;
-} 
+#graphic-switch-div{
+position: fixed;
+right: 30px;
+top: 30px;
+font-family: Helvetica, sans-serif;
+color: aliceblue;
+background-color: rgb(72, 161, 74);
+padding: 5px;
+border-radius: 10px;
+}
 
 .switch {
   position: relative;
@@ -158,10 +160,10 @@ input:checked + .slider:before {
   display: none
 }
 
-h3.graphic-design{
+#graphic-switch-div p.graphic-design{
   font-size: 30px;
   color:rgb(255, 0, 251);
-  text-align: left;
+  text-align: right;
 }
 
 h1.graphic-design{
@@ -182,6 +184,7 @@ canvas.graphic-design{
   border-style: dotted;
   box-shadow:2px 2px #9c25ef;
   accent-color: yellow;
+  float:right;
 }
 
 #canvas-container.graphic-design{
@@ -192,5 +195,12 @@ canvas.graphic-design{
   border-color: white;
 }
 .score-info.graphic-design{
-  text-align: right;
+  text-align: left;
+}
+
+.score-info.graphic-design{
+  color: black;
+  font-family: "WindSong";
+  text-decoration: underline;
+  font-size:60px;
 }
