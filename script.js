@@ -128,8 +128,6 @@ function resetGame(){
     snake = [{ x: 10, y: 10 }, {x: 9, y: 10}];
     direction = { x: 0, y: 0 };
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
-
-    startIntervals();
 }
 
 function gameLoop() {
@@ -277,15 +275,22 @@ function handleMovementKeys(event){
     case 'ArrowUp':
     case 'w':
       if (direction.y === 0) {
+        if(!startSnakeMovement){
+          startSnakeMovement = true;
+          startIntervals();
+        }
         direction = { x: 0, y: -1 };
-        startSnakeMovement = true;
       }
       break;
     case 'ArrowDown':
     case 's':
       if (direction.y === 0) {
+        if(!startSnakeMovement){
+          startSnakeMovement = true;
+          startIntervals();
+        }
         direction = { x: 0, y: 1 };
-        startSnakeMovement = true;
+        
       }
       break;
     case 'ArrowLeft':
@@ -297,8 +302,11 @@ function handleMovementKeys(event){
     case 'ArrowRight':
     case 'd':
       if (direction.x === 0) {
+        if(!startSnakeMovement){
+          startSnakeMovement = true;
+          startIntervals();
+        }
         direction = { x: 1, y: 0 };
-        startSnakeMovement = true;
       }
       break;
   }
@@ -337,7 +345,6 @@ async function initializeAllTimeHighScore(){
 }
 
 initializeAllTimeHighScore();
-startIntervals();
 gameLoop();
 
 

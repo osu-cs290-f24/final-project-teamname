@@ -1,9 +1,206 @@
 body {
   text-align: center;
   height: 80vh;
+  /* gradient overlay generated with the help of https://non-boring-gradients.netlify.app/ */
+  background: linear-gradient(180deg, rgb(0% 0% 0% / 0.26) 0%, rgb(22.752% 22.752% 22.752% / 0.20084381103515625) 6.25%, rgb(41.382% 41.382% 41.382% / 0.1524072265625) 12.5%, rgb(56.419% 56.419% 56.419% / 0.11330963134765626) 18.75%, rgb(68.359% 68.359% 68.359% / 0.08226562500000001) 25%, rgb(77.66% 77.66% 77.66% / 0.05808502197265625) 31.25%, rgb(84.741% 84.741% 84.741% / 0.0396728515625) 37.5%, rgb(89.989% 89.989% 89.989% / 0.02602935791015626) 43.75%, rgb(93.75% 93.75% 93.75% / 0.016249999999999987) 50%, rgb(96.336% 96.336% 96.336% / 0.009525451660156226) 56.25%, rgb(98.022% 98.022% 98.022% / 0.005141601562499987) 62.5%, rgb(99.046% 99.046% 99.046% / 0.00247955322265625) 68.75%, rgb(99.609% 99.609% 99.609% / 0.00101562500000002) 75%, rgb(99.876% 99.876% 99.876% / 0.00032135009765627) 81.25%, rgb(99.976% 99.976% 99.976% / 0.00006347656249999778) 87.5%, rgb(99.998% 99.998% 99.998% / 0.000003967285156225575) 93.75%, rgb(100% 100% 100% / 0) 100% )
+  , url(images/background.png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size:cover; 
+  margin: 0;
 }
 
 canvas {
   border: 2px solid #fff;
 }
-  
+
+h1{
+  font-size: 80px;
+  color: rgb(242, 225, 97); 
+  font-family: "Atma", serif;
+}
+
+.score-info{
+  color: aliceblue;
+  font-family: "Alegreya SC", serif;
+  font-size: 30px;
+}
+
+#instruction{
+  width: 30%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  font-style: italic;
+  background-color: lightgray;
+}
+
+/* Switch for graphic designer mode starts here */
+#graphic-switch-div{
+position: fixed;
+right: 30px;
+top: 30px;
+font-family: Helvetica, sans-serif;
+color: aliceblue;
+background-color: rgb(72, 161, 74);
+padding: 5px;
+border-radius: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(158, 158, 158);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: aliceblue;
+}
+
+input:checked + .slider {
+  background-color: #ff0000;
+}
+
+input:checked + .slider:before {
+  /* maaaaybe? */
+  transform: translateX(26px);
+}
+/* End graphic designer switch */
+
+/* Start yellow light dots stuff */
+.sun img{
+	width: 100px;
+  /* make them fall fancy infinitely */
+	animation:  sun 7.4s cubic-bezier(0.55, 0.09, 0.68, 0.53) infinite;
+}
+
+.sun{
+  /* space out light dots even */
+	border-width: 0px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	position: absolute;
+	top: -100px;
+}
+
+@keyframes sun{
+	0%{
+		transform: translateY(0);
+		opacity: 1;
+	}
+	50%{
+		opacity: 1;
+	}
+	80%{
+		opacity: 1;
+	}
+	100%{
+		transform: translateY(80vh);
+		opacity: 0;
+	}
+}
+
+.sun img:nth-child(1){
+	animation-delay:  2s;
+	width:  50px;
+}
+.sun img:nth-child(2){
+	animation-delay:  1s;
+}
+.sun img:nth-child(3){
+	animation-delay:  3s;
+	width:  50px;
+}
+.sun img:nth-child(4){
+	animation-delay:  4.5s;
+}
+.sun img:nth-child(5){
+	animation-delay:  3s;
+}
+.sun img:nth-child(6){
+	width: 75px;
+	animation-delay:  6s;
+}
+.sun img:nth-child(7){
+	width: 60px;
+	animation-delay:  7s;
+}
+
+/* Graphic designer mode formatting hehehehehehehehe*/
+.graphic-design{
+  background-color: #eb2828;
+  font-family: cursive;
+  background-image: none;
+}
+
+.sun.graphic-design{
+  display: none
+}
+
+#graphic-switch-div p.graphic-design{
+  font-size: 30px;
+  color:rgb(255, 0, 251);
+  text-align: right;
+}
+
+h1.graphic-design{
+  font-family: "Barriecito";
+  text-shadow: 40px 20px 12px #9c25ef;
+  color: rgb(111 108 86)
+}
+
+h1.graphic-design:hover{
+  color: rgb(83, 243, 68);
+  text-align:left;
+}
+
+canvas.graphic-design{
+  opacity: 0.5;
+  border-color: aqua;
+  border-width: 40px;
+  border-style: dotted;
+  box-shadow:2px 2px #9c25ef;
+  accent-color: yellow;
+  float:right;
+}
+
+#canvas-container.graphic-design{
+  background-color: black;
+  border-width: 5px;
+  border-radius: 50%;
+  border-style:solid;
+  border-color: white;
+}
+.score-info.graphic-design{
+  text-align: left;
+}
+
+.score-info.graphic-design{
+  color: black;
+  font-family: "WindSong";
+  text-decoration: underline;
+  font-size:60px;
+}
