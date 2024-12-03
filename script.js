@@ -27,6 +27,13 @@ var breakPowerUp = { x: null, y: null };
 var isBreakPowerUpActive = false;
 var breakPowerUpInterval;
 
+/*variables for the double points power up*/
+var doublePoints = { x: null, y: null };
+var isDoublePointsActive = false;
+var doublePointsDuration = 10000; // 10 seconds
+var doublePointsTimeout;
+var doublePointsInterval;
+
 /*variables for the high scores*/
 var allTimeHighScore = 0;
 var allTimeHighScoreSpan = document.getElementById('allTimeHighScore');
@@ -44,6 +51,7 @@ function generateSpeedUp() {
     speedUp.y = Math.floor(Math.random() * tileCount);
   } while (
     (speedUp.x === breakPowerUp.x && speedUp.y === breakPowerUp.y) || // Avoid break power-up
+    (speedUp.x === doublePoints.x && speedUp.y === doublePoints.y) || // Avoid double points power-up
     (speedUp.x === food.x && speedUp.y === food.y) || // Avoid food
     snake.some((part) => part.x === speedUp.x && part.y === speedUp.y) // Avoid snake
   );
@@ -57,11 +65,26 @@ function generateBreakPowerUp() {
     breakPowerUp.y = Math.floor(Math.random() * tileCount);
   } while (
     (breakPowerUp.x === speedUp.x && breakPowerUp.y === speedUp.y) || // Avoid speed power-up
+    (breakPowerUp.x === doublePoints.x && breakPowerUp.y === doublePoints.y) || // Avoid double points power-up
     (breakPowerUp.x === food.x && breakPowerUp.y === food.y) || // Avoid food
     snake.some((part) => part.x === breakPowerUp.x && part.y === breakPowerUp.y) // Avoid snake
   );
 
   isBreakPowerUpActive = false;
+}
+
+function generateDoublePoints() {
+  do {
+    doublePoints.x = Math.floor(Math.random() * tileCount);
+    doublePoints.y = Math.floor(Math.random() * tileCount);
+  } while (
+    (doublePoints.x === speedUp.x && doublePoints.y === speedUp.y) || // Avoid speed power-up
+    (doublePoints.x === breakPowerUp.x && doublePoints.y === breakPowerUp.y) || // Avoid break power-up
+    (doublePoints.x === food.x && doublePoints.y === food.y) || // Avoid food
+    snake.some((part) => part.x === doublePoints.x && part.y === doublePoints.y) // Avoid snake
+  );
+
+  isDoublePointsActive = true;
 }
 
 // start the intervals for generating power-ups
@@ -77,6 +100,12 @@ function startIntervals () {
       generateBreakPowerUp();
     }
   }, 25000);
+
+  doublePointsInterval = setInterval(() => {
+    if (!isDoublePointsActive) {
+      generateDoublePoints();
+    }
+  }, 20000);
 }
 
 function resetGame(){
@@ -87,8 +116,12 @@ function resetGame(){
     gameOver = false;
     isBreakPowerUpActive = false;
     isSpeedUpActive = false;
+    isDoublePointsActive = false;
     currentSpeed = normalSpeed;
 
+    clearTimeout(speedUpTimeout);
+    clearTimeout(doublePointsTimeout);
+    clearInterval(doublePointsInterval);
     clearInterval(speedUpInterval);
     clearInterval(breakPowerUpInterval);
 
@@ -135,6 +168,19 @@ function moveSnake() {
     }, speedUpDuration);
   }
 
+  //if snake eats double points power up
+  if (isDoublePointsActive && head.x === doublePoints.x && head.y === doublePoints.y) {
+    isDoublePointsActive = false; 
+    doublePoints = { x: null, y: null }; 
+  
+    // Activate the double points effect
+    clearTimeout(doublePointsTimeout); 
+    doublePointsTimeout = setTimeout(() => {
+      isDoublePointsActive = false;
+    }, doublePointsDuration);
+  }
+  
+
   if (head.x === breakPowerUp.x && head.y === breakPowerUp.y) {
     isBreakPowerUpActive = true; 
     breakPowerUp = { x: null, y: null }; 
@@ -142,8 +188,8 @@ function moveSnake() {
    
   if (head.x === food.x && head.y === food.y) {
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
-    currScore++;
-    currScoreSpan.innerText = currScore;
+    currScore += isDoublePointsActive ? 2 : 1;
+    currScoreSpan.innerText = currScore;  
 
     if(currScore > yourHighScore){
         yourHighScore = currScore;
@@ -207,6 +253,14 @@ function drawGame() {
     ctx.beginPath();
     ctx.arc(speedUp.x * gridSize + gridSize / 2, speedUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
     ctx.fillStyle = '#3c32a8'; 
+    ctx.fill();
+  }
+
+  // Draw the double points power-up
+  if (doublePoints.x !== null && doublePoints.y !== null) {
+    ctx.beginPath();
+    ctx.arc(doublePoints.x * gridSize + gridSize / 2, doublePoints.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = '#FFA500'; // Orange color for double points
     ctx.fill();
   }
 
