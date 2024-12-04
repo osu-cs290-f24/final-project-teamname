@@ -2,7 +2,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const gridSize = 40;
+const gridSize = 30;
 const tileCount = canvas.width / gridSize;
 
 /*variables for the snake*/
