@@ -21,6 +21,7 @@ h1{
   font-size: 80px;
   color: rgb(242, 225, 97); 
   font-family: "Atma", serif;
+  margin: 0;
 }
 
 .score-info{
