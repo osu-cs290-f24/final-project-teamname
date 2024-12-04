@@ -44,6 +44,29 @@ var yourHighScoreSpan = document.getElementById('yourHighScore');
 var currScore = 0;
 var currScoreSpan = document.getElementById('currScore');
 
+// Select modal and close button
+const modal = document.getElementById('infoModal');
+const closeModalButton = document.getElementById('closeModalButton');
+
+// Function to show the modal
+function showModal() {
+  modal.style.display = 'block';
+}
+
+// Function to hide the modal
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+// Event listener for the close button
+closeModalButton.addEventListener('click', closeModal);
+
+// Show the modal when the site loads
+window.onload = () => {
+  showModal();
+};
+
+
 //functions for generation power ups
 function generateSpeedUp() {
   do {
