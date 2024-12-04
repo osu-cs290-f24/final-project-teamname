@@ -22,17 +22,17 @@ var currentSpeed = normalSpeed;
 var speedUpTimeout;
 var speedUpInterval;
 
-/*variables for break power up*/
-var breakPowerUp = { x: null, y: null };
-var isBreakPowerUpActive = false;
-var breakPowerUpInterval;
-
-/*variables for the double points power up*/
+/*variables for double points power up*/
 var doublePoints = { x: null, y: null };
 var isDoublePointsActive = false;
 var doublePointsDuration = 10000; // 10 seconds
 var doublePointsTimeout;
 var doublePointsInterval;
+
+/*variables for break power up*/
+var breakPowerUp = { x: null, y: null };
+var isBreakPowerUpActive = false;
+var breakPowerUpInterval;
 
 /*variables for the high scores*/
 var allTimeHighScore = 0;
@@ -84,7 +84,7 @@ function generateDoublePoints() {
     snake.some((part) => part.x === doublePoints.x && part.y === doublePoints.y) // Avoid snake
   );
 
-  isDoublePointsActive = true;
+  isDoublePointsActive = false;
 }
 
 // start the intervals for generating power-ups
@@ -111,6 +111,10 @@ function startIntervals () {
 function resetGame(){
     currScore = 0;
     currScoreSpan.innerText = 0;
+
+    speedUp = { x: null, y: null };
+    doublePoints = { x: null, y: null };
+    breakPowerUp = { x: null, y: null };
 
     startSnakeMovement = false;
     gameOver = false;
@@ -167,8 +171,8 @@ function moveSnake() {
   }
 
   //if snake eats double points power up
-  if (isDoublePointsActive && head.x === doublePoints.x && head.y === doublePoints.y) {
-    isDoublePointsActive = false; 
+  if (head.x === doublePoints.x && head.y === doublePoints.y) {
+    isDoublePointsActive = true; 
     doublePoints = { x: null, y: null }; 
   
     // Activate the double points effect
@@ -186,7 +190,11 @@ function moveSnake() {
    
   if (head.x === food.x && head.y === food.y) {
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
-    currScore += isDoublePointsActive ? 2 : 1;
+    if (isDoublePointsActive) {
+      currScore += 2;
+    } else {
+      currScore++;
+    }
     currScoreSpan.innerText = currScore;  
 
     if(currScore > yourHighScore){
