@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake Game</title>
+  <title>Worm Game</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="fonts.css">
   <script src="/script.js" charset="utf-8" defer></script>
   <script src="/styleswitch.js" charset="utf-8" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +28,7 @@
 
   <div class= "score-info">Score: <span id = "currScore">0</span></div>
 <div id="canvas-container">
-  <canvas id="gameCanvas" width="800" height="800"></canvas>
+  <canvas id="gameCanvas" width="600" height="600"></canvas>
 </div>
   <div class = "sun">
 		<img src = "https://static.vecteezy.com/system/resources/thumbnails/019/646/645/small/sun-light-overlay-png.png">
@@ -44,5 +43,18 @@
   <aside id = Instruction>
     
   </aside>
+
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <h2>Welcome to Worm Game!</h2>
+      <p>Here are the power-ups and their effects:</p>
+      <ul>
+        <li><strong>Speed Up:</strong> Speeds up the worm for 5 seconds. (<span style="color:blue">Blue</span>)</li>
+        <li><strong>Double Points:</strong> Doubles the points for food eaten for 10 seconds. (<span style="color:orange">Orange</span>)</li>
+        <li><strong>Break Power-Up:</strong> If you have this power up, you will not die if the worm runs into itself, but you will lose the body below the point of collision. (<span style="color:gold">Yellow</span>)</li>
+      </ul>
+      <button id="closeModalButton">Got It!</button>
+    </div>
+  </div>
 </body>
 </html>
