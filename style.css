@@ -58,6 +58,10 @@ border-radius: 10px;
   height: 34px;
 }
 
+.switch:hover{
+  cursor: pointer;
+}
+
 .switch input {
   width: 0;
   height: 0;
@@ -157,7 +161,7 @@ input:checked + .slider:before {
 .graphic-design{
   background-color: #eb2828;
   font-family: cursive;
-  background-image: none;
+  background-image: linear-gradient(160deg, rgb(0% 0% 0% / 0) 0%, rgb(5.354% 8.209% 19.451% / 0.11148666381835937) 6.25%, rgb(9.737% 14.93% 35.377% / 0.20277099609375) 12.5%, rgb(13.275% 20.355% 48.233% / 0.2764549255371094) 18.75%, rgba(243, 255, 8, 0.335) 25%, rgb(18.273% 28.018% 66.391% / 0.38053207397460936) 31.25%, rgb(19.939% 30.573% 72.445% / 0.41523193359375) 37.5%, rgba(0, 51, 255, 0.696) 43.75%, rgb(22.059% 33.824% 80.147% / 0.459375) 50%, rgb(22.667% 34.757% 82.358% / 0.47204818725585934) 56.25%, rgb(23.064% 35.365% 83.8% / 0.48031005859375) 62.5%, rgb(23.305% 35.734% 84.675% / 0.48532699584960937) 68.75%, rgb(23.438% 35.938% 85.156% / 0.4880859375) 75%, rgb(23.5% 36.034% 85.385% / 0.4893943786621094) 81.25%, rgb(23.524% 36.07% 85.469% / 0.48988037109375) 87.5%, rgb(23.529% 36.078% 85.489% / 0.48999252319335934) 93.75%, rgb(0 0 0 / 49%) 100%);
 }
 
 .sun.graphic-design{
@@ -173,7 +177,8 @@ input:checked + .slider:before {
 h1.graphic-design{
   font-family: "Barriecito";
   text-shadow: 40px 20px 12px #9c25ef;
-  color: rgb(111 108 86)
+  color: rgb(255, 102, 0);
+  border: 2px solid black;
 }
 
 h1.graphic-design:hover{
@@ -189,6 +194,7 @@ canvas.graphic-design{
   box-shadow:2px 2px #9c25ef;
   accent-color: yellow;
   float:right;
+  filter:invert()
 }
 
 #canvas-container.graphic-design{
@@ -222,18 +228,41 @@ canvas.graphic-design{
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #fdffe7;
   margin: 10% auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 40px;
+  /* border: 1px solid #ccc; */
   width: 60%; 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
   border-radius: 8px;
+  font-family: Helvetica, sans-serif;
+}
+
+.modal-content ul {
+  list-style-type: none;
+  text-align: left;
+  margin: 20px;
+}
+
+.modal-content li{
+  margin: 10px;
+  font-size: 20px;
+}
+
+.modal-content h2 {
+  font-family: "Mali";
+  font-size: 40px;
+  margin: 0;
+}
+
+.modal-content p {
+  font-size: 20px;
+  margin: 0;
 }
 
 #closeModalButton {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   padding: 10px 20px;
   font-size: 16px;
   background-color: #4CAF50;
