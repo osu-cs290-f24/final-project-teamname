@@ -10,6 +10,53 @@ body {
   margin: 0;
 }
 
+
+#gameBoardContainer{
+  display: flex;             
+  align-items: center;        
+  justify-content: center;   
+  position: relative;  
+  
+}
+
+#canvas-container{
+  padding: 20px;
+  text-align: center;
+  position:relative;
+}
+
+#powerUpStatuses{
+  display:flex;
+  background-color: lightgreen; 
+  padding: 20px;
+  position: absolute;
+  left: calc(50% + 400px);
+  top: 20%; 
+  transform: translateY(-50%);
+  
+  width: 100px;
+
+  border-radius: 20px;
+}
+
+.statusImage{
+  opacity: 0.4;
+}
+
+
+#countdowns{
+  margin: 10px;
+
+}
+
+.countdown{
+  visibility: hidden;
+  font-family: "Mali";
+  font-size: 20px;
+
+  margin-bottom: 15px;
+}
+
 canvas {
   border: 2px solid #fff;
   /* top: 50%;

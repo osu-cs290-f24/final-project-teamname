@@ -27,13 +27,34 @@
   <br>
 
   <div class= "score-info">Score: <span id = "currScore">0</span></div>
+
 <div id="gameBoardContainer">
+
   <div id="canvas-container">
     <canvas id="gameCanvas" width="600" height="600"></canvas>
-
-    
   </div>
-</div>  
+
+  <div id="powerUpStatuses"> 
+    <div>
+      <div>
+        <img class = "statusImage" id = "speedUpImage" src = "images/speedUp.png">
+      </div>
+      <div>
+        <img class = "statusImage" id = "doubleUpImage" src = "images/doubleUp.png">
+      </div>
+      <div>
+        <img class = "statusImage" id = "breakUpImage" src = "images/breakUp.png">
+      </div>
+    </div>
+
+    <div id = "countdowns">
+      <div id="speedUpCountdown" class="countdown">5.0</div> 
+      <div id="doubleUpCountdown" class="countdown">10.0</div>
+    </div>
+  </div>  
+  
+</div>
+
   <div class = "sun">
 		<img src = "https://static.vecteezy.com/system/resources/thumbnails/019/646/645/small/sun-light-overlay-png.png">
 		<img src = "https://static.vecteezy.com/system/resources/thumbnails/019/646/645/small/sun-light-overlay-png.png">
