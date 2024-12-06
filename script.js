@@ -34,6 +34,24 @@ var breakPowerUp = { x: null, y: null };
 var isBreakPowerUpActive = false;
 var breakPowerUpInterval;
 
+// Load images
+var speedUpImage = new Image();
+speedUpImage.src = 'images/speedUp.png';
+
+var doublePointsImage = new Image();
+doublePointsImage.src = 'images/doubleUp.png';
+
+var breakPowerUpImage = new Image();
+breakPowerUpImage.src = 'images/breakUp.png';
+
+var foodImage = new Image();
+foodImage.src = 'images/food.png';
+
+speedUpImage.onload = () => console.log('Speed-up image loaded');
+doublePointsImage.onload = () => console.log('Double points image loaded');
+breakPowerUpImage.onload = () => console.log('Break power-up image loaded');
+foodImage.onload = () => console.log('Food image loaded');
+
 /*variables for the high scores*/
 var allTimeHighScore = 0;
 var allTimeHighScoreSpan = document.getElementById('allTimeHighScore');
@@ -244,9 +262,9 @@ function drawGame() {
   for (var row = 0; row < tileCount; row++) {
     for (var col = 0; col < tileCount; col++) {
       if ((row + col) % 2 === 0) {
-        ctx.fillStyle = '#A9A9A9'; 
+        ctx.fillStyle = '#9E6A42'; 
       } else {
-        ctx.fillStyle = '#808080'; 
+        ctx.fillStyle = '#D1B17D'; 
       }
       ctx.fillRect(col * gridSize, row * gridSize, gridSize, gridSize);
     }
@@ -254,7 +272,7 @@ function drawGame() {
 
 
   //Draw the snake
-  ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#0F0'; // Yellow when break power-up is active, green otherwise
+  ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#F28A8A'; // Yellow when break power-up is active, green otherwise
   snake.forEach((part) => {
     if(part === snake[0]){
 
@@ -271,34 +289,52 @@ function drawGame() {
 
   // Draw the break power-up
   if (breakPowerUp.x !== null && breakPowerUp.y !== null) {
-    ctx.beginPath();
-    ctx.arc(breakPowerUp.x * gridSize + gridSize / 2, breakPowerUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = '#e3bd00';
-    ctx.fill();
+    ctx.drawImage(
+      breakPowerUpImage,
+      breakPowerUp.x * gridSize,
+      breakPowerUp.y * gridSize,
+      gridSize,
+      gridSize
+    );
   }
 
-   // draw speed up power up
-   if (isSpeedUpActive) {
-    ctx.beginPath();
-    ctx.arc(speedUp.x * gridSize + gridSize / 2, speedUp.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = '#3c32a8'; 
-    ctx.fill();
+  // Draw speed-up power-up
+  if (isSpeedUpActive) {
+    ctx.drawImage(
+      speedUpImage,
+      speedUp.x * gridSize,
+      speedUp.y * gridSize,
+      gridSize,
+      gridSize
+    );
   }
 
-  // Draw the double points power-up
+  // Draw double points power-up
   if (doublePoints.x !== null && doublePoints.y !== null) {
-    ctx.beginPath();
-    ctx.arc(doublePoints.x * gridSize + gridSize / 2, doublePoints.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = '#FFA500'; // Orange color for double points
-    ctx.fill();
+    ctx.drawImage(
+      doublePointsImage,
+      doublePoints.x * gridSize,
+      doublePoints.y * gridSize,
+      gridSize,
+      gridSize
+    );
   }
 
-  //Draw the food
-  ctx.beginPath();
-  ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
-  ctx.fillStyle = '#F00';
-  ctx.fill();
-  
+  // Draw food
+  if (foodImage.complete) {
+    ctx.drawImage(
+      foodImage,
+      food.x * gridSize,
+      food.y * gridSize,
+      gridSize,
+      gridSize
+    );
+  } else {
+    ctx.beginPath();
+    ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = '#F00';
+    ctx.fill();
+  }
 }
 
 function handleMovementKeys(event){
