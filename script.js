@@ -262,7 +262,7 @@ function drawGame() {
   for (var row = 0; row < tileCount; row++) {
     for (var col = 0; col < tileCount; col++) {
       if ((row + col) % 2 === 0) {
-        ctx.fillStyle = '#9E6A42'; 
+        ctx.fillStyle = '#b08d54'; 
       } else {
         ctx.fillStyle = '#D1B17D'; 
       }
@@ -272,7 +272,7 @@ function drawGame() {
 
 
   //Draw the snake
-  ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#F28A8A'; // Yellow when break power-up is active, green otherwise
+  ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#fc7979'; // Yellow when break power-up is active, green otherwise
   snake.forEach((part) => {
     if(part === snake[0]){
 
