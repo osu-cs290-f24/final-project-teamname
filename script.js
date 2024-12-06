@@ -70,23 +70,16 @@ var currScoreSpan = document.getElementById('currScore');
 const modal = document.getElementById('infoModal');
 const closeModalButton = document.getElementById('closeModalButton');
 
-// Function to show the modal
-function showModal() {
-  modal.style.display = 'block';
-}
+var modalOpen = true;
 
 // Function to hide the modal
 function closeModal() {
-  modal.style.display = 'none';
+  modal.classList.add("hidden");
+  modalOpen = false;
 }
 
 // Event listener for the close button
 closeModalButton.addEventListener('click', closeModal);
-
-// Show the modal when the site loads
-window.onload = () => {
-  showModal();
-};
 
 
 //functions for generation power ups
@@ -153,7 +146,28 @@ function startIntervals () {
   }, 20000);
 }
 
+var gameOverModal = document.getElementById("gameOverModal");
+
+function resetPowerUpStatuses(){
+  var countdowns = document.getElementsByClassName("countdown");
+  for(var i = 0; i < countdowns.length; i++){
+    countdowns[i].style.visibility = "hidden";
+  }
+
+  var statusImages = document.getElementsByClassName("statusImage");
+
+  for(var i = 0; i < statusImages.length; i++){
+    statusImages[i].style.opacity = 0.4;
+  }
+
+}
+
 function resetGame(){
+    gameOverModal.classList.add("hidden");
+    modalOpen = false;
+
+    resetPowerUpStatuses();
+
     currScore = 0;
     currScoreSpan.innerText = 0;
 
@@ -179,24 +193,77 @@ function resetGame(){
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 }
 
+function showGameOver(){
+  modalOpen = true;
+  gameOverModal.classList.remove("hidden");
+  var modalScore = document.getElementById("gameOverModalScore");
+
+  modalScore.innerText = currScore;
+}
+
+var playAgainButton = document.getElementById("playAgainButton");
+playAgainButton.addEventListener('click', resetGame)
+
 function gameLoop() {
 
   if (gameOver) {
-    alert("Game Over! Play again?");
-
-    resetGame();
+     showGameOver();
   }
 
-  drawGame();
+  if(!gameOver){
+    drawGame();
 
-  if(startSnakeMovement){
-    moveSnake();
-    checkCollisions();
+    if(startSnakeMovement){
+      moveSnake();
+      checkCollisions();
   }
+}
   
-  //Call gameLoop function again with 100ms delay 
+  //Call gameLoop function again with 100ms delay by default
   setTimeout(gameLoop, currentSpeed);
 }
+
+function runCountdown(powerUp) {
+
+  var countdownSeconds;
+  var countdownDisplay;
+
+  if(powerUp == "speedUp"){
+    document.getElementById("speedUpImage").style.opacity = 1;
+    countdownSeconds = 5.0;
+    countdownDisplay = document.getElementById("speedUpCountdown");
+  }else if(powerUp == "doubleUp"){
+    document.getElementById("doubleUpImage").style.opacity = 1;
+    countdownSeconds = 10.0;
+    countdownDisplay = document.getElementById("doubleUpCountdown");
+  }
+
+  countdownDisplay.style.visibility = "visible";
+
+  const interval = setInterval(() => {
+    // Update the text content with the remaining time to one decimal place
+    countdownDisplay.textContent = countdownSeconds.toFixed(1);
+
+    // Check if countdown has reached zero or below
+    if (countdownSeconds <= 0) {
+        clearInterval(interval); // Stop the timer
+
+        countdownDisplay.style.visibility = "hidden";
+
+        if(powerUp == "speedUp"){
+          document.getElementById("speedUpImage").style.opacity = 0.4;
+          countdownDisplay.textContent = 5.0;
+        }else if(powerUp == "doubleUp"){
+          document.getElementById("doubleUpImage").style.opacity = 0.4;
+          countdownDisplay.textContent = 10.0;
+        }
+
+    } else {
+        countdownSeconds -= 0.1; // Decrease the counter by 0.1 seconds
+    }
+  }, 100); // Run every 100 milliseconds
+}
+
 
 function moveSnake() {
   const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
@@ -213,6 +280,8 @@ function moveSnake() {
     speedUpTimeout = setTimeout(() => {
       currentSpeed = normalSpeed;
     }, speedUpDuration);
+
+    runCountdown("speedUp");
   }
 
   //if snake eats double points power up
@@ -225,12 +294,16 @@ function moveSnake() {
     doublePointsTimeout = setTimeout(() => {
       isDoublePointsActive = false;
     }, doublePointsDuration);
+
+    runCountdown("doubleUp");
   }
   
 
   if (head.x === breakPowerUp.x && head.y === breakPowerUp.y) {
     isBreakPowerUpActive = true; 
     breakPowerUp = { x: null, y: null }; 
+
+    document.getElementById("breakUpImage").style.opacity = 1;
   }
    
   if (head.x === food.x && head.y === food.y) {
@@ -362,6 +435,11 @@ function drawGame() {
 }
 
 function handleMovementKeys(event){
+
+  if(modalOpen){
+    return;
+  }
+
   switch (event.key) {
     case 'ArrowUp':
     case 'w':

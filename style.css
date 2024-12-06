@@ -10,6 +10,53 @@ body {
   margin: 0;
 }
 
+
+#gameBoardContainer{
+  display: flex;             
+  align-items: center;        
+  justify-content: center;   
+  position: relative;  
+  
+}
+
+#canvas-container{
+  padding: 20px;
+  text-align: center;
+  position:relative;
+}
+
+#powerUpStatuses{
+  display:flex;
+  background-color: lightgreen; 
+  padding: 20px;
+  position: absolute;
+  left: calc(50% + 400px);
+  top: 20%; 
+  transform: translateY(-50%);
+  
+  width: 100px;
+
+  border-radius: 20px;
+}
+
+.statusImage{
+  opacity: 0.4;
+}
+
+
+#countdowns{
+  margin: 10px;
+
+}
+
+.countdown{
+  visibility: hidden;
+  font-family: "Mali";
+  font-size: 20px;
+
+  margin-bottom: 15px;
+}
+
 canvas {
   border: 2px solid #fff;
   /* top: 50%;
@@ -30,14 +77,7 @@ h1{
   font-size: 30px;
 }
 
-#instruction{
-  width: 30%;
-  padding-left: 15px;
-  margin-left: 15px;
-  float: right;
-  font-style: italic;
-  background-color: lightgray;
-}
+
 
 /* Switch for graphic designer mode starts here */
 #graphic-switch-div{
@@ -215,8 +255,11 @@ canvas.graphic-design{
   font-size:60px;
 }
 
-.modal {
+.hidden{
   display: none;
+}
+
+.modal {
   position: fixed;
   z-index: 1000; 
   left: 0;
@@ -235,7 +278,7 @@ canvas.graphic-design{
   width: 60%; 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
-  border-radius: 8px;
+  border-radius: 30px;
   font-family: Helvetica, sans-serif;
 }
 
@@ -269,8 +312,19 @@ canvas.graphic-design{
   margin: 0;
 }
 
-#closeModalButton {
-  /* margin-top: 20px; */
+#gameOverModalContent{
+  font-family: "Mali";
+  background-color: #d4c4ac;
+  margin: 10% auto;
+  padding: 40px;
+  /* border: 1px solid #ccc; */
+  width: 30%; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border-radius: 30px;
+}
+
+.modalButton {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #4CAF50;
@@ -280,7 +334,7 @@ canvas.graphic-design{
   border-radius: 5px;
 }
 
-#closeModalButton:hover {
+.modalButton:hover {
   background-color: #45a049;
 }
 
