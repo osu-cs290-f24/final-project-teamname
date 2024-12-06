@@ -66,23 +66,16 @@ var currScoreSpan = document.getElementById('currScore');
 const modal = document.getElementById('infoModal');
 const closeModalButton = document.getElementById('closeModalButton');
 
-// Function to show the modal
-function showModal() {
-  modal.style.display = 'block';
-}
+var modalOpen = true;
 
 // Function to hide the modal
 function closeModal() {
-  modal.style.display = 'none';
+  modal.classList.add("hidden");
+  modalOpen = false;
 }
 
 // Event listener for the close button
 closeModalButton.addEventListener('click', closeModal);
-
-// Show the modal when the site loads
-window.onload = () => {
-  showModal();
-};
 
 
 //functions for generation power ups
@@ -149,7 +142,12 @@ function startIntervals () {
   }, 20000);
 }
 
+var gameOverModal = document.getElementById("gameOverModal");
+
 function resetGame(){
+    gameOverModal.classList.add("hidden");
+    modalOpen = false;
+
     currScore = 0;
     currScoreSpan.innerText = 0;
 
@@ -175,20 +173,31 @@ function resetGame(){
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 }
 
+function showGameOver(){
+  modalOpen = true;
+  gameOverModal.classList.remove("hidden");
+  var modalScore = document.getElementById("gameOverModalScore");
+
+  modalScore.innerText = currScore;
+}
+
+var playAgainButton = document.getElementById("playAgainButton");
+playAgainButton.addEventListener('click', resetGame)
+
 function gameLoop() {
 
   if (gameOver) {
-    alert("Game Over! Play again?");
-
-    resetGame();
+     showGameOver();
   }
 
-  drawGame();
+  if(!gameOver){
+    drawGame();
 
-  if(startSnakeMovement){
-    moveSnake();
-    checkCollisions();
+    if(startSnakeMovement){
+      moveSnake();
+      checkCollisions();
   }
+}
   
   //Call gameLoop function again with 100ms delay 
   setTimeout(gameLoop, currentSpeed);
@@ -338,6 +347,11 @@ function drawGame() {
 }
 
 function handleMovementKeys(event){
+
+  if(modalOpen){
+    return;
+  }
+
   switch (event.key) {
     case 'ArrowUp':
     case 'w':
