@@ -228,7 +228,7 @@ canvas.graphic-design{
 }
 
 .modal-content {
-  background-color: #d4c4ac;
+  background-color: #beaf98;
   margin: 10% auto;
   padding: 40px;
   /* border: 1px solid #ccc; */
@@ -282,4 +282,10 @@ canvas.graphic-design{
 
 #closeModalButton:hover {
   background-color: #45a049;
+}
+
+#credits {
+  font-size: 12px;
+  color: #000;
+  margin-top: 10px;
 }
