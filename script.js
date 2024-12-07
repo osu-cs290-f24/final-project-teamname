@@ -500,9 +500,10 @@ function checkCollisions() {
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
       if (isBreakPowerUpActive) {
-        // Break power-up active: remove all parts after collision
-        snake = snake.slice(0, i); 
+        // Break power-up active: remove all the parts from the collision to end of snake
+        snake = snake.slice(0, i - 1); 
         isBreakPowerUpActive = false; 
+        document.getElementById("breakUpImage").style.opacity = 0.4;
         break; 
       } else {
         gameOver = true; 
