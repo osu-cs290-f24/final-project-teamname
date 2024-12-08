@@ -338,7 +338,8 @@ function drawGame() {
 
     ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)'; // 25% transparent white
+    ctx.fillStyle = 'rgba(25,0,50, 0.25)'; // 25% transparent blue-red ish
+    // ctx.fillStyle = 'rgba(128,128,128, 0.1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   } else {
     for (var row = 0; row < tileCount; row++) {
