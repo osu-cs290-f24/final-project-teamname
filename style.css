@@ -255,6 +255,10 @@ canvas.graphic-design{
   font-size:60px;
 }
 
+.modal.graphic-design{
+  background-image: none;
+}
+/* End graphic design formatting */
 .hidden{
   display: none;
 }
@@ -301,14 +305,14 @@ canvas.graphic-design{
   font-size: 20px;
 }
 
-.modal-content h2 {
-  font-family: "Mali";
-  font-size: 40px;
+.modal-content p {
+  font-size: 20px;
   margin: 0;
 }
 
-.modal-content p {
-  font-size: 20px;
+.modal .modal-header-text {
+  font-family: "Mali";
+  font-size: 60px;
   margin: 0;
 }
 
@@ -322,6 +326,10 @@ canvas.graphic-design{
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
   border-radius: 30px;
+}
+
+#gameOverModalContent .score-info{
+  color: rgb(16, 15, 15)
 }
 
 .modalButton {
