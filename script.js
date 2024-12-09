@@ -188,7 +188,7 @@ function resetGame(){
     clearInterval(speedUpInterval);
     clearInterval(breakPowerUpInterval);
 
-    snake = [{ x: 10, y: 10 }, {x: 9, y: 10}];
+    snake = [{ x: 10, y: 10 }, {x: 9, y: 10}, {x: 8, y: 10}];
     direction = { x: 0, y: 0 };
     food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 }
