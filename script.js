@@ -357,7 +357,7 @@ function drawGame() {
 
   //Draw the snake
   ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#e65e70'; // Yellow when break power-up is active, green otherwise
-  const biggerSize = gridSize * 1.2; 
+  const biggerSize = gridSize * 1.5; 
   const offset = (biggerSize - gridSize) / 2;
 
   snake.forEach((part) => {
