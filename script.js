@@ -6,7 +6,7 @@ const gridSize = 30;
 const tileCount = canvas.width / gridSize;
 
 /*variables for the snake*/
-var snake = [{ x: 10, y: 10 }, {x: 9, y: 10}];
+var snake = [{ x: 10, y: 10 }, {x: 9, y: 10}, {x: 8, y: 10}];
 var direction = { x: 0, y: 0 };
 var food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
 var gameOver = false;
@@ -333,6 +333,23 @@ function moveSnake() {
   }
 }
 
+//To draw rectangle with rounded edges
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+
+  // Top-left corner
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + width, y, x + width, y + height, radius); // Top-right
+  ctx.arcTo(x + width, y + height, x, y + height, radius); // Bottom-right
+  ctx.arcTo(x, y + height, x, y, radius); // Bottom-left
+  ctx.arcTo(x, y, x + width, y, radius); // Top-left to close
+
+  ctx.closePath(); // Optional, closes the shape
+
+  ctx.fill(); // Fill the rectangle
+
+}
+
 function drawGame() {
   if(bgImage.complete){
 
@@ -377,10 +394,9 @@ function drawGame() {
         ctx.fillStyle = '#de7a87';
       }
 
-      ctx.fillRect(part.x * gridSize - offset, part.y * gridSize - offset, biggerSize, biggerSize);
-    }
-    
-    else{
+      drawRoundedRect(ctx, part.x * gridSize - offset, part.y * gridSize - offset, biggerSize, biggerSize, 10);
+
+    } else{
 
         //Draw rest of snake
         ctx.fillStyle = isBreakPowerUpActive ? '#FFFF00' : '#e65e70';
